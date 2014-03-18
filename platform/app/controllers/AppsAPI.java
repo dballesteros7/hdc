@@ -9,6 +9,7 @@ import play.Play;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.Logger;
 import utils.DateTimeUtils;
 import utils.json.JsonValidation;
 import utils.json.JsonValidation.JsonValidationException;
@@ -53,7 +54,9 @@ public class AppsAPI extends Controller {
 		try {
 			Record.add(record);
 		} catch (ModelException e) {
-			return badRequest(e.getMessage());
+		    Logger.error(e.getMessage());
+			//return badRequest(e.getMessage());
+		    //FIXME: THIS IS ONLY TO AVOID THE FREAKING ERROR BECAUSE OF ELASTICSEARCH
 		}
 
 		// allow cross origin request from app server
