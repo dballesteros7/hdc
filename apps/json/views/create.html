@@ -1,0 +1,38 @@
+<div ng-controller="CreateCtrl">
+  <div class="col-xs-10 col-xs-offset-2 page-header">
+    <h1>Enter JSON records</h1>
+  </div>
+  <div class="col-xs-10 col-xs-offset-2">
+    <alert type="'success'" ng-show="success.show"
+      close="closeAlert(success)"> {{success.msg}} </alert>
+    <alert type="'danger'" ng-show="error.show"
+      close="closeAlert(error)"> {{error.msg}} </alert>
+  </div>
+  <form class="form-horizontal" name="create">
+    <div class="form-group">
+      <label class="col-xs-2 control-label" for="title">Title</label>
+      <div class="col-xs-10">
+        <input class="form-control" type="text" id="title"
+          placeholder="Title" ng-model="title" ng-maxlength="50"
+          required autofocus>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-2 control-label" for="data">Data</label>
+      <div class="col-xs-10">
+        <textarea class="form-control" type="text" id="data"
+          placeholder="Enter the data in JSON format" rows="5"
+          ng-model="data" required json></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-2 col-xs-offset-2">
+        <button class="btn btn-primary btn-block"
+          ng-disabled="create.$invalid" ng-click="submit()">Submit</button>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-warning btn-block" ng-click="clear($event)">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>

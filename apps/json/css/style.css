@@ -1,0 +1,13 @@
+input.ng-dirty.ng-invalid:focus,textarea.ng-dirty.ng-invalid:focus {
+  outline: 0;
+  border-color: red;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px
+    rgba(255, 0, 0, 0.6);
+}
+
+input.ng-valid:focus,textarea.ng-valid:focus {
+  outline: 0;
+  border-color: rgb(136, 196, 37);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px
+    rgba(136, 196, 37, 0.6);
+}
