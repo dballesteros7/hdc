@@ -5,7 +5,11 @@
   <div ng-hide="loading">
     <div class="panel panel-primary">
       <div class="panel-heading">{{record.title}}</div>
-      <div class="panel-body" style="white-space: pre-line;">{{record.data}}</div>
+      <div class="panel-body" data-angular-treeview="true"
+        data-tree-id="abc" data-tree-model="treedata"
+        data-node-id="id" data-node-label="label"
+        data-node-children="children"></div>
     </div>
   </div>
+</div>
 </div>

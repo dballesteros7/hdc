@@ -1,5 +1,5 @@
 var hdcTextRecords = angular.module('hdcTextRecords', [ 'ngRoute',
-        'textRecordControllers' ]);
+        'textRecordControllers', 'angularTreeview']);
 
 hdcTextRecords.config([ '$routeProvider', function($routeProvider){
     $routeProvider.when('/create/:replyTo', {

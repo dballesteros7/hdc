@@ -64,7 +64,7 @@ textRecordControllers.controller('CreateCtrl', [
                     $scope.error = err.responseText;
                 });
             };
-
+		
             // Selection of providers
             $scope.currentProvider = "Select one...";
             $scope.currentCall = "Select one...";
@@ -88,7 +88,13 @@ textRecordControllers.controller('CreateCtrl', [
             $scope.displayCall = function(choice){
                 $scope.currentCall = choice;
             };
+            
         } ]);
+
+             /* ---->>>> Angular JS TreeView needs treedata variable to pass the content */   
+            
+  
+
 
 textRecordControllers.controller('DetailsCtrl', [ '$scope', '$routeParams',
         function($scope, $routeParams){
@@ -98,6 +104,6 @@ textRecordControllers.controller('DetailsCtrl', [ '$scope', '$routeParams',
 
             // parse Base64 encoded JSON record
             $scope.record = JSON.parse(atob($routeParams.record));
+            $scope.treedata = $scope.record; 
             $scope.loading = false;
-
         } ]);
