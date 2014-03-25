@@ -28,6 +28,8 @@ if __name__ == '__main__':
                       'tools.staticdir.content_types' : {'js' : 'text/javascript'}},
             '/views': {'tools.staticdir.on': True,
                       'tools.staticdir.dir': os.path.join(app_dir, 'views')},
+            '/assets': {'tools.staticdir.on': True,
+                      'tools.staticdir.dir': os.path.join(app_dir, 'assets')},
             '/index' : {'tools.staticfile.on' : True,
                         'tools.staticfile.filename' : os.path.join(app_dir, 'index.html')},
             '/' : {'request.dispatch' : d}
