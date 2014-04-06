@@ -1,0 +1,43 @@
+<div ng-controller="AuthCtrl">
+  <div class="col-xs-10 col-xs-offset-2 page-header">
+    <h1>Welcome to the Fitbit app</h1>
+    <h2>Please select the data to import</h2>
+  </div>
+  <div class="col-xs-10 col-xs-offset-2">
+    <alert close="dismissError()" type="error.type" ng-show="error.msg">
+    {{error.msg}} </alert>
+  </div>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label for="api-option" class="col-xs-2 control-label">API
+        option</label>
+      <div class="col-xs-6">
+        <select ng-model="selectedOption"
+          ng-options="option.name for option in options"
+          class="form-control" autofocus><option></option></select>
+      </div>
+    </div>
+    <div class="form-group" ng-repeat="arg in selectedOption.arguments">
+      <label for="argument-{{$index}}" class="col-xs-2 control-label">{{arg.name}}</label>
+      <div class="col-xs-6">
+        <input ng-if="arg.type != 'select'"
+          ng-model="argumentValues[selectedOption.name][$index]"
+          type={{arg.type}} id="argument-{{$index}}"> <select
+          ng-if="arg.type == 'select'" id="argument-{{$index}}"
+          ng-model="argumentValues[selectedOption.name][$index]"
+          ng-options="option.name for option in arg.options"
+          class="form-control"><option></option></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-10 col-xs-offset-2">
+        <button ng-hide="loading" class="btn btn-primary"
+          ng-click="importData()">Import data</button>
+      </div>
+    </div>
+  </form>
+  <div class="col-xs-offset-2" ng-show="loading">
+    <img src="assets/img/loader.gif"> <span>Importing the
+      data, please wait...</span>
+  </div>
+</div>
