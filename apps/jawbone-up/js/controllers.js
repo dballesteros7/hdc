@@ -16,10 +16,7 @@ hdcJawboneUp.controller('ConnectController', [ '$scope', '$routeParams',
 				$scope.loading = true;
 				$http({
 					method : 'GET',
-					url : '/authorize/jawboneUp',
-					params : {
-						'reply_to' : replyTo
-					}
+					url : '/authorize/jawbone-up'
 				}).success(function(data, status, headers, config) {
 					window.location.assign(data.redirect_to);
 				}).error(function(data, status, headers, config) {
@@ -27,4 +24,10 @@ hdcJawboneUp.controller('ConnectController', [ '$scope', '$routeParams',
 				})
 
 			}
+		} ]);
+
+hdcJawboneUp.controller('ConnectedController', [ '$scope', '$routeParams',
+		'$log', '$location', '$http',
+		function($scope, $routeParams, $log, $location, $http) {
+			// TODO: finish the controller here
 		} ]);
