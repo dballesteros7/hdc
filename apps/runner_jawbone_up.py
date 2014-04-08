@@ -40,7 +40,10 @@ if __name__ == '__main__':
               conditions=dict(method=["GET"]))
     cherrypy.config.update({'log.error_file': 'site.log',
                             'log.screen': True,
-                            'server.thread_pool' : 20})
+                            'server.thread_pool' : 20,
+                            'server.ssl_module' : 'builtin',
+                            'server.ssl_certificate' : 'cert.pem',
+                            'server.ssl_private_key' : 'privkey.pem'})
     conf = {'/js': {'tools.staticdir.on': True,
                       'tools.staticdir.dir': os.path.join(app_dir, 'js'),
                       'tools.staticdir.content_types' : {'js' : 'text/javascript'}},
