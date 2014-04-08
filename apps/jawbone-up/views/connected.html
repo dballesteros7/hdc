@@ -1,1 +1,16 @@
-TODO
+<div ng-controller="ConnectedCtrl">
+	<div class="row page-header">
+		<h1>Jawbone Up Connector</h1>
+	</div>
+	<form class="form-horizontal">
+		<div class="form-group row">
+			<label for="api-option" class="col-xs-2 control-lable">API
+				Option</label>
+			<div class="col-xs-6">
+				<select ng-model="selectedOption"
+					ng-options="option.name for option in options" class="form-control"
+					autofocus><option></option></select>
+			</div>
+		</div>
+	</form>
+</div>

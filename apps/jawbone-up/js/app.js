@@ -10,9 +10,9 @@ angular.module("hdcJawboneUp", [ "ngRoute", "ui.bootstrap" ]).config(
 		[ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/connect/:replyTo', {
 				templateUrl : 'views/connect.html',
-				controller : 'ConnectController'
+				controller : 'ConnectCtrl'
 			}).when('/connected/:replyTo', {
-				templateUrl : 'views/conncted.html',
-				controller : 'ConnectedController'
+				templateUrl : 'views/connected.html',
+				controller : 'ConnectedCtrl'
 			});
 		} ]);
