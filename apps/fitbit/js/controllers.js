@@ -35,16 +35,35 @@ hdcFitbit.controller("CreateCtrl", [ "$scope", "$routeParams", "$log",
             };
         } ]);
 
-hdcFitbit.controller("DetailsCtrl", [ "$scope", "$routeParams",
-        function($scope, $routeParams){
-
+hdcFitbit.controller("DetailsCtrl", [
+        "$scope",
+        "$routeParams",
+        "$http",
+        function($scope, $routeParams, $http){
             // init
             $scope.loading = true;
-
-            // parse Base64 encoded JSON record
-            $scope.record = JSON.parse(atob($routeParams.record));
-            $scope.loading = false;
-
+            $scope.data = {
+                _type : 'date_histogram'
+            };
+            $http({
+                url : "/load",
+                method : "GET"
+            }).success(
+                    function(data, status, headers, config){
+                        $scope.loading = false;
+                        $scope.dataType = Object.keys(data)[0];
+                        var dataArray = data[$scope.dataType];
+                        $scope.data.entries = new Array();
+                        for (var i = 0; i < dataArray.length; i++) {
+                            var date_millis = new Date(dataArray[i].dateTime)
+                                    .getTime();
+                            var value = parseFloat(dataArray[i].value);
+                            $scope.data.entries.push({
+                                time : date_millis,
+                                count : value
+                            });
+                        }
+                    });
         } ]);
 
 hdcFitbit
@@ -56,16 +75,18 @@ hdcFitbit
                         "fitbit",
                         "$location",
                         "$log",
-                        function($scope, $routeParams, fitbit, $location, $log){
+                        "$http",
+                        function($scope, $routeParams, fitbit, $location, $log,
+                                $http){
                             // init
                             var replyTo = $routeParams.replyTo;
                             var oauth_token = $routeParams.oauth_token;
-                            var oauth_secret = $routeParams.oauth_token_secret;
+                            var oauth_token_secret = $routeParams.oauth_token_secret;
                             var consumer_key = '7f7d7e289dbd4cf890f02990cb2b527c';
                             var consumer_secret = '91a5adb0ad1546a3844cda09738445d0';
                             var oauth_objects = {
                                 oauth_token : oauth_token,
-                                oauth_secret : oauth_secret,
+                                oauth_token_secret : oauth_token_secret,
                                 consumer_key : consumer_key,
                                 consumer_secret : consumer_secret
                             };
@@ -95,7 +116,11 @@ hdcFitbit
                                 var successFunc = function(data, status,
                                         headers, config){
                                     $scope.loading = false;
-                                    $log.log(data);
+                                    $http({
+                                        url : '/store',
+                                        method : 'POST',
+                                        data : data,
+                                    });
                                 };
                                 var errorFunc = function(data, status, headers,
                                         config){
