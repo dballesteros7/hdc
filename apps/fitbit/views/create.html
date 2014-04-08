@@ -1,0 +1,21 @@
+<div ng-controller="CreateCtrl">
+  <div class="col-xs-10 col-xs-offset-2 page-header">
+    <h1>Welcome to the Fitbit app</h1>
+  </div>
+  <div class="col-xs-10 col-xs-offset-2">
+    <alert close="dismissError()" type="error.type" ng-show="error.msg">
+    {{error.msg}} </alert>
+  </div>
+  <form ng-hide="loading" class="form-horizontal">
+    <div class="form-group">
+      <div class="col-xs-10 col-xs-offset-2">
+        <button class="btn btn-primary" ng-click="startLoginFlow()">Login
+          with Fitbit</button>
+      </div>
+    </div>
+  </form>
+  <div class="col-xs-offset-2" ng-show="loading">
+    <img src="assets/img/loader.gif"> <span>Redirecting you
+      to Fitbit, please wait...</span>
+  </div>
+</div>
