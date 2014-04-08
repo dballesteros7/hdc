@@ -1,0 +1,20 @@
+<div ng-controller="ConnectController">
+	<div class="row page-header">
+		<h1>Jawbone Up Connector</h1>
+	</div>
+	<div class="row">
+		<div class="lead">Haven't yet connected to your Jawbone Up
+			account?</div>
+		<p class="help-block">
+			Click on the following button to import your <a
+				href="https://jawbone.com/up">Jawbone Up</a> data to our platform.
+		</p>
+		<p>
+			<button class="btn btn-primary" ng-class="{disabled: loading}"
+				ng-click="connect()">Connect</button>
+			<span class="help-block" ng-show="loading"> <img
+				src="assets/img/loader.gif"> Please wait...
+			</span>
+		</p>
+	</div>
+</div>
