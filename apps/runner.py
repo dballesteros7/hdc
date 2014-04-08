@@ -15,6 +15,7 @@ _CLIENT_SECRET = '91a5adb0ad1546a3844cda09738445d0'
 _REQUEST_TOKEN_URL = 'http://api.fitbit.com/oauth/request_token'
 _ACCESS_TOKEN_URL = 'http://api.fitbit.com/oauth/access_token'
 _BASE_AUTHORIZE_URL = 'http://www.fitbit.com/oauth/authorize'
+_THE_FILE = '/tmp/data.json'
 
 @cherrypy.tools.json_out()
 def proxy(url_encoded):
@@ -50,6 +51,19 @@ def callback_fitbit(reply_to, oauth_token, oauth_verifier):
     raise cherrypy.HTTPRedirect('/index#/authenticated/%s?oauth_token=%s&oauth_token_secret=%s' % (reply_to, real_access_token,
                                                                                                   real_access_secret))
 
+@cherrypy.tools.json_out()
+def store_data():
+    data = json.loads(cherrypy.request.body.read())
+    with open(_THE_FILE, 'w') as f:
+        json.dump(data, f)
+    return {}
+
+@cherrypy.tools.json_out()
+def retrieve_data():
+    with open(_THE_FILE, 'r') as f:
+        the_data = json.load(f)
+    return the_data
+
 if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.abspath(__file__))
     app_dir = os.path.join(current_dir, _APP_NAME)
@@ -60,9 +74,17 @@ if __name__ == '__main__':
               conditions = dict(method = ["GET"]))
     d.connect(name = 'fitbit-step2', route = '/callback/fitbit/:reply_to', controller = callback_fitbit,
               conditions = dict(method = ['GET']))
+    d.connect(name = 'fitbit-store', route = '/store', controller = store_data,
+              conditions = dict(method = ['POST']))
+    d.connect(name = 'fitbit-load', route = '/load', controller = retrieve_data,
+              conditions = dict(method = ['GET']))
     cherrypy.config.update({'log.error_file': 'site.log',
                             'log.screen': True,
-                            'server.thread_pool' : 20})
+                            'server.thread_pool' : 20,
+                            'server.ssl_module' : 'builtin',
+                            'server.ssl_certificate' : '/home/diegob/cert.pem',
+                            'server.ssl_private_key' : '/home/diegob/privkey.pem'})
+
     conf = {'/js': {'tools.staticdir.on': True,
                       'tools.staticdir.dir': os.path.join(app_dir, 'js'),
                       'tools.staticdir.content_types' : {'js' : 'text/javascript'}},
@@ -72,8 +94,7 @@ if __name__ == '__main__':
                       'tools.staticdir.dir': os.path.join(app_dir, 'assets')},
             '/index' : {'tools.staticfile.on' : True,
                         'tools.staticfile.filename' : os.path.join(app_dir, 'index.html')},
-            '/' : {'request.dispatch' : d}
-            }
+            '/' : {'request.dispatch' : d}}
     cherrypy.tree.mount(root = None, config = conf)
     cherrypy.engine.start()
     cherrypy.engine.block()
