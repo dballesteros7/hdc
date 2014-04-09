@@ -6,7 +6,7 @@ var hdcJawboneUp = angular.module('hdcJawboneUp');
 
 hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 		'$location', '$http',
-		function($scope, $routeParams, $log, $location, $http) {
+		function($scope, $routeParams, $log, $location, $http) {			
 			// init
 			var replyTo = $routeParams.replyTo;
 			$scope.loading = false;
