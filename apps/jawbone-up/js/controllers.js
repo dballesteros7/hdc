@@ -6,9 +6,8 @@ var hdcJawboneUp = angular.module('hdcJawboneUp');
 
 hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 		'$location', '$http',
-		function($scope, $routeParams, $log, $location, $http) {			
+		function($scope, $routeParams, $log, $location, $http) {
 			// init
-			var replyTo = $routeParams.replyTo;
 			$scope.loading = false;
 
 			// Controller functions
@@ -26,10 +25,9 @@ hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 			}
 		} ]);
 
-hdcJawboneUp.controller('ConnectedCtrl', [ '$scope', '$routeParams', '$log',
+hdcJawboneUp.controller('ImportCtrl', [ '$scope', '$routeParams', '$log',
 		'$location', 'jawboneUpService',
 		function($scope, $routeParams, $log, $location, jawboneUpService) {
-			var replyTo = $routeParams.replyTo;
 			var access_token = $routeParams.access_token;
-			$scope.options = jawboneUpService.options;
+
 		} ]);
