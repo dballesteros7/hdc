@@ -8,7 +8,7 @@ from requests_oauthlib import OAuth2Session
 
 _APP_NAME = 'jawbone-up'
 _CLIENT_ID = '5g4X_c17R8Y'
-_CLIENT_SECRET = '85da2f8450cb8e0f2d9ee352a98f8a58f9f8a0e4'
+_CLIENT_SECRET = 'a749135658a3a9ca5cd76169a6fb365f'
 _REDIRECT_URI = 'https://localhost:8080/redirect/jawbone-up'
 _AUTHORIZATION_BASE_URL = 'https://jawbone.com/auth/oauth2/auth'
 _TOKEN_URL = 'https://jawbone.com/auth/oauth2/token'
