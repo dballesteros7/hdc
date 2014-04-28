@@ -19,6 +19,8 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.suggest.SuggestResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -55,7 +57,13 @@ public class Search {
 
 	public static void connect() {
 		// start a client node (holds no data)
-		node = NodeBuilder.nodeBuilder().clusterName(CLUSTER_NAME).client(true).node();
+		Settings settings = ImmutableSettings.settingsBuilder()
+			.put("http.enabled", "false")
+			.put("transport.tcp.port", "9300-9400")
+			.put("discovery.zen.ping.multicast.enabled", "false")
+			.put("discovery.zen.ping.unicast.hosts", "localhost").build();
+		node = NodeBuilder.nodeBuilder().clusterName(CLUSTER_NAME).client(true)
+			.settings(settings).node();
 		client = node.client();
 	}
 
