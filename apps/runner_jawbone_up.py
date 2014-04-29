@@ -34,8 +34,9 @@ def authorize_with_jawbone_up():
 def obtain_token_from_jawbone_up(state, code):
     oauth = OAuth2Session(client_id=_CLIENT_ID)
     response = oauth.fetch_token(_TOKEN_URL, code, client_secret=_CLIENT_SECRET)
-    access_token = response.get('access_token')    
-    raise cherrypy.HTTPRedirect('/index#/import/connected?access_token=' + access_token)
+    access_token = response.get('access_token')
+    print access_token
+    raise cherrypy.HTTPRedirect('/index#/connect/success?connected=connected')
                                                                                            
 if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -43,11 +44,11 @@ if __name__ == '__main__':
     d = cherrypy.dispatch.RoutesDispatcher()
     d.connect(name="proxy", route="/proxy", controller=proxy,
               conditions=dict(method=["GET"]))
-    d.connect(name="jawbone-up-step1", route="/authorize/jawbone-up", controller=authorize_with_jawbone_up,
+    d.connect(name="jawbone-up-oauth-step-1", route="/authorize/jawbone-up", controller=authorize_with_jawbone_up,
               conditions=dict(method=["GET"]))
-    d.connect(name="jawbone-up-step2", route="/redirect/jawbone-up", controller=obtain_token_from_jawbone_up,
+    d.connect(name="jawbone-up-oauth-step-2", route="/redirect/jawbone-up", controller=obtain_token_from_jawbone_up,
               conditions=dict(method=["GET"]))
-    
+
     cherrypy.config.update({'log.error_file': 'site.log',
                             'log.screen': True,
                             'server.thread_pool' : 20,

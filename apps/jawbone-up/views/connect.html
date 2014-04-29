@@ -3,18 +3,35 @@
 		<h1>Jawbone Up Connector</h1>
 	</div>
 	<div class="col-xs-10 col-xs-offset-2 row">
-		<div class="lead">
-			Haven't yet connected to your <a href="https://jawbone.com/up">Jawbone
-				Up</a> account?
+		<div ng-hide="connected">
+			<div class="lead">
+				Haven't yet connected to your <a href="https://jawbone.com/up">Jawbone
+					Up</a> account?
+			</div>
+			<p class="help-block">Click on the following button to import
+				your data now.</p>
+			<p>
+				<button class="btn btn-primary" ng-class="{disabled: loading}"
+					ng-click="connectToJawboneUp()">Connect</button>
+				<span class="help-block" ng-show="loading"> <img
+					src="assets/img/loader.gif"> Please wait...
+				</span>
+			</p>
 		</div>
-		<p class="help-block">Click on the following button to import your
-			data now.</p>
-		<p>
-			<button class="btn btn-primary" ng-class="{disabled: loading}"
-				ng-click="connectToJawboneUp()">Connect</button>
-			<span class="help-block" ng-show="loading"> <img
-				src="assets/img/loader.gif"> Please wait...
-			</span>
-		</p>
+		<div ng-show="connected">
+			<div class="lead">
+				Congratulations! You have successfully connected to your <a
+					href="https://jawbone.com/up">Jawbone Up</a> account.
+			</div>
+			<p class="help-block">Click on the following button to go to
+				import wizard now.</p>
+			<p>
+				<button class="btn btn-primary" ng-class="{disabled: loading}"
+					ng-click="showImportWizard()">Go to Import Wizard</button>
+				<span class="help-block" ng-show="loading"> <img
+					src="assets/img/loader.gif"> Please wait...
+				</span>
+			</p>
+		</div>
 	</div>
 </div>

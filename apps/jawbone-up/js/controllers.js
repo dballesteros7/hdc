@@ -7,8 +7,9 @@ var hdcJawboneUp = angular.module('hdcJawboneUp');
 hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 		'$location', '$http',
 		function($scope, $routeParams, $log, $location, $http) {
-			// init
+			// Init
 			$scope.loading = false;
+			$scope.connected = $routeParams.connected ? true : false;
 
 			// Controller functions
 			$scope.connectToJawboneUp = function() {
@@ -20,13 +21,16 @@ hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 					window.location.assign(data.redirect_to);
 				}).error(function(data, status, headers, config) {
 					$scope.loading = false;
-				})
+				});
+			}
+
+			$scope.showImportWizard = function() {
+				$scope.loading = true;
+				window.location.assign('/index#/wizard/wizard')
 			}
 		} ]);
 
-hdcJawboneUp.controller('ImportCtrl', [ '$scope', '$routeParams', '$log',
+hdcJawboneUp.controller('WizardCtrl', [ '$scope', '$routeParams', '$log',
 		'$location', 'jawboneUpService',
 		function($scope, $routeParams, $log, $location, jawboneUpService) {
-			var access_token = $routeParams.access_token;
-
 		} ]);
