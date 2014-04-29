@@ -7,7 +7,7 @@
  * valid access token that can be used to import his data from Nike+. <br>
  * 3. details: This view displays a stored Nike+ record.
  */
-angular.module("hdcFitbit", [ "ngRoute", "ui.bootstrap" ]).config(
+angular.module("hdcFitbit", [ "ngRoute", "ui.bootstrap", "dangle"]).config(
         [ '$routeProvider', function($routeProvider){
             $routeProvider.when('/create/:replyTo', {
                 templateUrl : 'views/create.html',

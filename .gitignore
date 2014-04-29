@@ -1,1 +1,6 @@
 /.settings
+/bin
+.classpath
+.pydevproject
+.project
+*.log

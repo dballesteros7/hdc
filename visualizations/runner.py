@@ -7,7 +7,7 @@ import requests
 from requests_oauthlib import OAuth1Session
 
 
-_APP_NAME = 'fitbit'
+_APP_NAME = 'water-meter'
 resource_owner_key = None
 resource_owner_secret = None
 _CLIENT_KEY = '7f7d7e289dbd4cf890f02990cb2b527c'
@@ -80,10 +80,12 @@ if __name__ == '__main__':
               conditions = dict(method = ['GET']))
     cherrypy.config.update({'log.error_file': 'site.log',
                             'log.screen': True,
-                            'server.thread_pool' : 20,})
+                            'server.thread_pool' : 20,
+                            'server.socket_port' : 8081})
                             #'server.ssl_module' : 'builtin',
                             #'server.ssl_certificate' : 'cert.pem',
                             #'server.ssl_private_key' : 'privkey.pem'})
+
     conf = {'/js': {'tools.staticdir.on': True,
                       'tools.staticdir.dir': os.path.join(app_dir, 'js'),
                       'tools.staticdir.content_types' : {'js' : 'text/javascript'}},
