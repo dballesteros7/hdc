@@ -13,6 +13,8 @@ _REDIRECT_URI = 'https://localhost:8080/redirect/jawbone-up'
 _AUTHORIZATION_BASE_URL = 'https://jawbone.com/auth/oauth2/auth'
 _TOKEN_URL = 'https://jawbone.com/auth/oauth2/token'
 _SCOPE = ['basic_read extended_read location_read friends_read mood_read move_read sleep_read meal_read weight_read cardiac_read generic_event_read']
+_TOKEN_FILE = '/Users/ruiixu23/Development/data/hdc/token.json'
+_DATA_FILE = '/Users/ruiixu23/Development/data/hdc/data.json'
 
 @cherrypy.tools.json_out()
 def proxy(url_encoded):
@@ -35,7 +37,8 @@ def obtain_token_from_jawbone_up(state, code):
     oauth = OAuth2Session(client_id=_CLIENT_ID)
     response = oauth.fetch_token(_TOKEN_URL, code, client_secret=_CLIENT_SECRET)
     access_token = response.get('access_token')
-    print access_token
+    with open(_TOKEN_FILE, 'w') as tokenFile:
+        json.dump({'access_token': access_token}, tokenFile)        
     raise cherrypy.HTTPRedirect('/index#/connect/success?connected=connected')
                                                                                            
 if __name__ == '__main__':

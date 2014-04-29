@@ -26,7 +26,7 @@ hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 
 			$scope.showImportWizard = function() {
 				$scope.loading = true;
-				window.location.assign('/index#/wizard/wizard')
+				window.location.assign('/index#/wizard/import')
 			}
 		} ]);
 
