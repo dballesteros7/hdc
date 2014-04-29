@@ -1,1 +1,15 @@
 /.settings
+
+# Play framework files
+/bin
+/target
+
+# Ignore logs
+*.log
+
+#Eclipse files
+.project
+.classpath
+
+# PyDev
+.pydevproject
