@@ -35,7 +35,7 @@ def obtain_token_from_jawbone_up(state, code):
     oauth = OAuth2Session(client_id=_CLIENT_ID)
     response = oauth.fetch_token(_TOKEN_URL, code, client_secret=_CLIENT_SECRET)
     access_token = response.get('access_token')    
-    raise cherrypy.HTTPRedirect('/index#/import/success?access_token=' + access_token)
+    raise cherrypy.HTTPRedirect('/index#/import/connected?access_token=' + access_token)
                                                                                            
 if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.abspath(__file__))

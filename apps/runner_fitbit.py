@@ -21,7 +21,7 @@ _THE_FILE = '/tmp/data.json'
 def proxy(url_encoded):
     decoded_url = urllib.unquote(url_encoded)
     response = requests.get(decoded_url,
-                            headers = {'Authorization' : cherrypy.request.headers['Authorization']})
+                            headers={'Authorization' : cherrypy.request.headers['Authorization']})
     cherrypy.response.status = response.status_code
     return response.json()
 
@@ -29,9 +29,9 @@ def proxy(url_encoded):
 def login_with_fitbit(reply_to):
     global resource_owner_key
     global resource_owner_secret
-    oauth = OAuth1Session(client_key = _CLIENT_KEY,
-                          client_secret = _CLIENT_SECRET,
-                          callback_uri = 'http://localhost:8080/callback/fitbit/%s' % reply_to)
+    oauth = OAuth1Session(client_key=_CLIENT_KEY,
+                          client_secret=_CLIENT_SECRET,
+                          callback_uri='http://localhost:8080/callback/fitbit/%s' % reply_to)
     response = oauth.fetch_request_token(_REQUEST_TOKEN_URL)
     resource_owner_key = response.get('oauth_token')
     resource_owner_secret = response.get('oauth_token_secret')
@@ -40,11 +40,11 @@ def login_with_fitbit(reply_to):
     return response
 
 def callback_fitbit(reply_to, oauth_token, oauth_verifier):
-    oauth = OAuth1Session(client_key = _CLIENT_KEY,
-                          client_secret = _CLIENT_SECRET,
-                          resource_owner_key = resource_owner_key,
-                          resource_owner_secret = resource_owner_secret,
-                          verifier = oauth_verifier)
+    oauth = OAuth1Session(client_key=_CLIENT_KEY,
+                          client_secret=_CLIENT_SECRET,
+                          resource_owner_key=resource_owner_key,
+                          resource_owner_secret=resource_owner_secret,
+                          verifier=oauth_verifier)
     response = oauth.fetch_access_token(_ACCESS_TOKEN_URL)
     real_access_token = response.get('oauth_token')
     real_access_secret = response.get('oauth_token_secret')
@@ -68,22 +68,22 @@ if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.abspath(__file__))
     app_dir = os.path.join(current_dir, _APP_NAME)
     d = cherrypy.dispatch.RoutesDispatcher()
-    d.connect(name = "proxy", route = "/proxy", controller = proxy,
-              conditions = dict(method = ["GET"]))
-    d.connect(name = "fitbit-step1", route = "/connect/fitbit", controller = login_with_fitbit,
-              conditions = dict(method = ["GET"]))
-    d.connect(name = 'fitbit-step2', route = '/callback/fitbit/:reply_to', controller = callback_fitbit,
-              conditions = dict(method = ['GET']))
-    d.connect(name = 'fitbit-store', route = '/store', controller = store_data,
-              conditions = dict(method = ['POST']))
-    d.connect(name = 'fitbit-load', route = '/load', controller = retrieve_data,
-              conditions = dict(method = ['GET']))
+    d.connect(name="proxy", route="/proxy", controller=proxy,
+              conditions=dict(method=["GET"]))
+    d.connect(name="fitbit-step1", route="/connect/fitbit", controller=login_with_fitbit,
+              conditions=dict(method=["GET"]))
+    d.connect(name='fitbit-step2', route='/callback/fitbit/:reply_to', controller=callback_fitbit,
+              conditions=dict(method=['GET']))
+    d.connect(name='fitbit-store', route='/store', controller=store_data,
+              conditions=dict(method=['POST']))
+    d.connect(name='fitbit-load', route='/load', controller=retrieve_data,
+              conditions=dict(method=['GET']))
     cherrypy.config.update({'log.error_file': 'site.log',
                             'log.screen': True,
-                            'server.thread_pool' : 20,})
-                            #'server.ssl_module' : 'builtin',
-                            #'server.ssl_certificate' : 'cert.pem',
-                            #'server.ssl_private_key' : 'privkey.pem'})
+                            'server.thread_pool' : 20, })
+                            # 'server.ssl_module' : 'builtin',
+                            # 'server.ssl_certificate' : 'cert.pem',
+                            # 'server.ssl_private_key' : 'privkey.pem'})
     conf = {'/js': {'tools.staticdir.on': True,
                       'tools.staticdir.dir': os.path.join(app_dir, 'js'),
                       'tools.staticdir.content_types' : {'js' : 'text/javascript'}},
@@ -94,6 +94,6 @@ if __name__ == '__main__':
             '/index' : {'tools.staticfile.on' : True,
                         'tools.staticfile.filename' : os.path.join(app_dir, 'index.html')},
             '/' : {'request.dispatch' : d}}
-    cherrypy.tree.mount(root = None, config = conf)
+    cherrypy.tree.mount(root=None, config=conf)
     cherrypy.engine.start()
     cherrypy.engine.block()

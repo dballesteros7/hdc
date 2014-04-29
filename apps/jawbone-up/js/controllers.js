@@ -21,7 +21,6 @@ hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 				}).error(function(data, status, headers, config) {
 					$scope.loading = false;
 				})
-
 			}
 		} ]);
 
