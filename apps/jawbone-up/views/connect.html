@@ -1,17 +1,17 @@
 <div ng-controller="ConnectCtrl">
-	<div class="row page-header">
+	<div class="col-xs-10 col-xs-offset-2 row page-header">
 		<h1>Jawbone Up Connector</h1>
 	</div>
-	<div class="row">
+	<div class="col-xs-10 col-xs-offset-2 row">
 		<div class="lead">
 			Haven't yet connected to your <a href="https://jawbone.com/up">Jawbone
 				Up</a> account?
 		</div>
 		<p class="help-block">Click on the following button to import your
-			Jawbone Up data now.</p>
+			data now.</p>
 		<p>
 			<button class="btn btn-primary" ng-class="{disabled: loading}"
-				ng-click="connect()">Connect</button>
+				ng-click="connectToJawboneUp()">Connect</button>
 			<span class="help-block" ng-show="loading"> <img
 				src="assets/img/loader.gif"> Please wait...
 			</span>

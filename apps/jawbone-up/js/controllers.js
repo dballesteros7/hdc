@@ -11,7 +11,7 @@ hdcJawboneUp.controller('ConnectCtrl', [ '$scope', '$routeParams', '$log',
 			$scope.loading = false;
 
 			// Controller functions
-			$scope.connect = function() {
+			$scope.connectToJawboneUp = function() {
 				$scope.loading = true;
 				$http({
 					method : 'GET',
