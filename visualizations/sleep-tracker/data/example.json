@@ -1,0 +1,195 @@
+{
+  "meta":  {
+    "user_xid": "0XKM3EPKpEK2Us_gzG4EAA",
+    "message": "OK",
+    "code": 200,
+    "time": 1399206209
+  },
+  "data":  {
+    "items":  [
+       {
+        "place_lon": "",
+        "time_updated": 1394518494,
+        "xid": "z6BBETRVLXVhJknGRcCtUA",
+        "place_lat": "",
+        "title": "for 4h 55m",
+        "place_acc": "",
+        "time_completed": 1394518459,
+        "details":  {
+          "body": 0,
+          "sound": 4381,
+          "smart_alarm_fire": 1394516400,
+          "awakenings": 1,
+          "light": 13334,
+          "mind": 0,
+          "asleep_time": 1394500018,
+          "awake_time": 1394518200,
+          "awake": 2243,
+          "rem": 0,
+          "duration": 19958,
+          "tz": "Europe/Zurich",
+          "quality": 48,
+          "sunset": 1394558640,
+          "sunrise": 1394516820
+        },
+        "time_created": 1394498501,
+        "date": 20140311,
+        "shared": false,
+        "snapshot_image": "/nudge/image/e/1394518494/z6BBETRVLXVhJknGRcCtUA/L6F6Mlp2dtg.png",
+        "sub_type": 0,
+        "place_name": ""
+      },
+       {
+        "place_lon": "",
+        "time_updated": 1394577252,
+        "xid": "z6BBETRVLXVVaZcc0U04FQ",
+        "place_lat": "",
+        "title": "for 1h 15m",
+        "place_acc": "",
+        "time_completed": 1394562600,
+        "details":  {
+          "body": 0,
+          "sound": 1500,
+          "smart_alarm_fire": 0,
+          "awakenings": 1,
+          "light": 3000,
+          "mind": 0,
+          "asleep_time": 1394556600,
+          "awake_time": 1394562600,
+          "awake": 2700,
+          "rem": 0,
+          "duration": 7200,
+          "tz": "Europe/Zurich",
+          "quality": 12,
+          "sunset": 1394558700,
+          "sunrise": 1394516760
+        },
+        "time_created": 1394555400,
+        "date": 20140311,
+        "shared": false,
+        "snapshot_image": "/nudge/image/e/1394577252/z6BBETRVLXVVaZcc0U04FQ/L6F6Mlp2dtg.png",
+        "sub_type": 2,
+        "place_name": ""
+      }
+    ],
+    "size": 2
+},
+    "z6BBETRVLXVhJknGRcCtUA" : {
+  "meta":  {
+    "user_xid": "0XKM3EPKpEK2Us_gzG4EAA",
+    "message": "OK",
+    "code": 200,
+    "time": 1399206246
+  },
+  "data":  {
+    "items":  [
+       {
+        "depth": 1,
+        "time": 1394498520
+      },
+       {
+        "depth": 2,
+        "time": 1394499900
+      },
+       {
+        "depth": 3,
+        "time": 1394500200
+      },
+       {
+        "depth": 2,
+        "time": 1394500500
+      },
+       {
+        "depth": 3,
+        "time": 1394502000
+      },
+       {
+        "depth": 2,
+        "time": 1394502600
+      },
+       {
+        "depth": 3,
+        "time": 1394505600
+      },
+       {
+        "depth": 2,
+        "time": 1394507100
+      },
+       {
+        "depth": 3,
+        "time": 1394511900
+      },
+       {
+        "depth": 2,
+        "time": 1394512500
+      },
+       {
+        "depth": 3,
+        "time": 1394514300
+      },
+       {
+        "depth": 2,
+        "time": 1394515500
+      },
+       {
+        "depth": 1,
+        "time": 1394516400
+      },
+       {
+        "depth": 2,
+        "time": 1394517300
+      },
+       {
+        "depth": 1,
+        "time": 1394518200
+      }
+    ],
+    "size": 15
+  }
+}, 
+"z6BBETRVLXVVaZcc0U04FQ" : {
+  "meta":  {
+    "user_xid": "0XKM3EPKpEK2Us_gzG4EAA",
+    "message": "OK",
+    "code": 200,
+    "time": 1399206288
+  },
+  "data":  {
+    "items":  [
+       {
+        "depth": 1,
+        "time": 1394555400
+      },
+       {
+        "depth": 2,
+        "time": 1394556600
+      },
+       {
+        "depth": 3,
+        "time": 1394558100
+      },
+       {
+        "depth": 2,
+        "time": 1394559000
+      },
+       {
+        "depth": 1,
+        "time": 1394559300
+      },
+       {
+        "depth": 2,
+        "time": 1394560500
+      },
+       {
+        "depth": 3,
+        "time": 1394560800
+      },
+       {
+        "depth": 2,
+        "time": 1394561400
+      }
+    ],
+    "size": 8
+  }
+}
+}
