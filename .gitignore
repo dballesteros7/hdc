@@ -13,3 +13,6 @@
 
 # PyDev
 .pydevproject
+
+# Bower
+bower_components/
