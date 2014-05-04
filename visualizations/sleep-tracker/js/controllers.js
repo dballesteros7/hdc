@@ -66,8 +66,8 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
       var records = _.map(JSON.parse(atob($routeParams.records)), JSON.parse);
       var distilledRecords = _.filter(records, function(elem){
         // First check that this is a jawbone UP record
-        // A jawbone record should have a meta property, and a data property wit
-        // items
+        // A jawbone record should have a meta property, and a data property
+        // with items
         if (elem.meta === undefined || elem.data === undefined
             || elem.data.items === undefined) {
           return false;
@@ -106,6 +106,9 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
         var item = new Object();
         item.sunset = $scope.toHours(elem.data.items[0].details.sunset);
         item.sunrise = $scope.toHours(elem.data.items[0].details.sunrise);
+        item.start_date = new Date(elem.data.items[0].time_created * 1000).toLocaleDateString();
+        item.end_date = new Date(elem.data.items[elem.data.items.length - 1]
+          .time_completed * 1000).toLocaleDateString();
         item.quality = _.max(elem.data.items, function(val){
           return parseInt(val.details.quality);
         }).details.quality;

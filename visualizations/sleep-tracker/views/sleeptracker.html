@@ -1,3 +1,4 @@
-<sleep-cycle width="500" ng-repeat="item in sleepCollection"
-  sunrise="{{item.sunrise}}" sunset="{{item.sunset}}"
+<h2>Sleep records</h2>
+<sleep-cycle width="300" sunrise="{{item.sunrise}}"
+  ng-repeat="item in sleepCollection" sunset="{{item.sunset}}"
   sleep-data="item.data" sleep-quality="{{item.quality}}"></sleep-cycle>
