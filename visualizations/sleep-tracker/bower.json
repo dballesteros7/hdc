@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "visualizations": "git://github.com/dballesteros7/visualizations.git#0.1.5",
+    "visualizations": "git://github.com/dballesteros7/visualizations.git#0.1.6",
     "angular" : "1.2.16",
     "angular-route" : "1.2.16",
     "angular-ui-bootstrap" : "0.11.0",
