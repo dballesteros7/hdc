@@ -62,6 +62,32 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
           return 'Sound sleep';
         }
       };
+      /**
+       * Function to configure the date picker
+       */
+      $scope.configureDatePicker = function(){
+        $scope.minDate = $scope.sleepCollection[0].start_date;
+        $scope.maxDate = $scope
+          .sleepCollection[$scope.sleepCollection.length - 1].start_date;
+        $scope.datePickerOpened = false;
+        $scope.openDatePicker = function($event){
+          $event.preventDefault();
+          $event.stopPropagation();
+          $scope.datePickerOpened = true;
+        };
+        $scope.disableDate = function(newDate, mode){
+          if(mode == 'day' && newDate){
+            return !$scope.sleepMap[newDate.toDateString()];
+          }
+        };
+        $scope.sleepDayDate = $scope.minDate;
+        $scope.$watch('sleepDayDate', function(){
+          if($scope.sleepDayDate){
+            $scope.sleepDay = $scope
+              .sleepMap[$scope.sleepDayDate.toDateString()];
+          }
+        });
+      };
 
       var records = _.map(JSON.parse(atob($routeParams.records)), JSON.parse);
       var distilledRecords = _.filter(records, function(elem){
@@ -101,14 +127,16 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
         }
         return true;
       });
+      // Configure the width of the element
+      $scope.visWidth = 300;
       // For each of the distilled records, create a clock
       $scope.sleepCollection = _.map(distilledRecords, function(elem){
         var item = new Object();
         item.sunset = $scope.toHours(elem.data.items[0].details.sunset);
         item.sunrise = $scope.toHours(elem.data.items[0].details.sunrise);
-        item.start_date = new Date(elem.data.items[0].time_created * 1000).toLocaleDateString();
-        item.end_date = new Date(elem.data.items[elem.data.items.length - 1]
-          .time_completed * 1000).toLocaleDateString();
+        item.start_date = new Date(elem.data.items[0].time_created * 1000);
+        item.end_date = new Date(
+            elem.data.items[elem.data.items.length - 1].time_completed * 1000);
         item.quality = _.max(elem.data.items, function(val){
           return parseInt(val.details.quality);
         }).details.quality;
@@ -134,5 +162,16 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
         });
         return item;
       });
-      console.log($scope.sleepCollection);
+      // Ensure that clocks are ordered by date
+      $scope.sleepCollection = _.sortBy($scope.sleepCollection, function(val){
+        return val.start_date;
+      });
+      // Map the sleep collection to an object where the property keys are the
+      // dates
+      $scope.sleepMap = {};
+      $scope.sleepCollection.forEach(function(val){
+        $scope.sleepMap[val.start_date.toDateString()] = val;
+      });
+      // Configure the date picker
+      $scope.configureDatePicker();
     } ]);

@@ -1,4 +1,20 @@
 <h2>Sleep records</h2>
-<sleep-cycle width="300" sunrise="{{item.sunrise}}"
-  ng-repeat="item in sleepCollection" sunset="{{item.sunset}}"
-  sleep-data="item.data" sleep-quality="{{item.quality}}"></sleep-cycle>
+<!-- The sleep cycle element is only showed when there is at least one day with
+  sleep date selected, ng-if is used because the sleep-cycle directive is
+  currently (v0.1.4) not robust to missing input data. -->
+<sleep-cycle width="{{visWidth}}" sunrise="{{sleepDay.sunrise}}" ng-if="sleepDay"
+  sunset="{{sleepDay.sunset}}" sleep-data="sleepDay.data"
+  sleep-quality="{{sleepDay.quality}}"></sleep-cycle>
+<p ng-hide="sleepDay">No data available...</p>
+<p style="width: {{visWidth}}px;" class="input-group">
+  <input type="text" class="form-control"
+    datepicker-popup="dd-MMMM-yyyy" ng-model="sleepDayDate"
+    is-open="datePickerOpened" min-date="minDate" max-date="maxDate"
+    date-disabled="disableDate(date, mode)" ng-required="true"
+    close-text="Close" /> <span class="input-group-btn">
+    <button type="button" class="btn btn-default"
+      ng-click="openDatePicker($event)">
+      <i class="glyphicon glyphicon-calendar"></i>
+    </button>
+  </span>
+</p>
