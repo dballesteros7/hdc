@@ -80,7 +80,7 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
             return !$scope.sleepMap[newDate.toDateString()];
           }
         };
-        $scope.sleepDayDate = $scope.minDate;
+        //$scope.sleepDayDate = $scope.minDate;
         $scope.$watch('sleepDayDate', function(){
           if($scope.sleepDayDate){
             $scope.sleepDay = $scope
@@ -172,6 +172,21 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
       $scope.sleepCollection.forEach(function(val){
         $scope.sleepMap[val.start_date.toDateString()] = val;
       });
+      // Create a time series with the sleep quality data
+      $scope.sleepQuality = _.map($scope.sleepCollection, function(val){
+        return {value : val.quality,
+                datetime : val.start_date};
+      });
       // Configure the date picker
       $scope.configureDatePicker();
+      // Configure the display of the date series
+      $scope.dateSeriesShow = true;
+      $scope.displayDateSeries = function(){
+        $scope.dateSeriesShow = true;
+      };
+      $scope.showDay = function(point){
+        $scope.sleepDay = $scope.sleepMap[point.original.datetime
+                                            .toDateString()];
+        $scope.dateSeriesShow = false;
+      };
     } ]);
