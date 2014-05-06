@@ -129,6 +129,7 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
       });
       // Configure the width of the element
       $scope.visWidth = 300;
+      $scope.dateWidth = 400;
       // For each of the distilled records, create a clock
       $scope.sleepCollection = _.map(distilledRecords, function(elem){
         var item = new Object();

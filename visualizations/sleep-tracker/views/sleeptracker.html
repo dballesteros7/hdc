@@ -2,7 +2,7 @@
   sleep date selected, ng-if is used because the sleep-cycle directive is
   currently (v0.1.4) not robust to missing input data. -->
 
-<date-series width="{{visWidth}}" height="300" id="sleep-data-chart"
+<date-series width="{{dateWidth}}" height="300" id="sleep-data-chart"
   axis-x-title="Date" y-title="Sleep Quality (%)" units="%"
   data="sleepQuality" ng-show="dateSeriesShow"
   click-data-point="showDay(point)"></date-series>
