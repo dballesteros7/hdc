@@ -1,4 +1,4 @@
-angular.module('hdcSleepTracker.jawbone').factory(
+angular.module('hdcSleepTracker.jawbone', []).factory(
     'jawbone',
     function(){
       var jawboneService = {};
