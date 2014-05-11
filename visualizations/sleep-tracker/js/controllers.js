@@ -37,7 +37,7 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
     '$routeParams',
     'jawbone',
     'fitbit',
-    function($scope, $routeParams, jawbone){
+    function($scope, $routeParams, jawbone, fitbit){
       /**
        * Function to configure the date picker
        */
