@@ -36,45 +36,8 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
     '$scope',
     '$routeParams',
     'jawbone',
+    'fitbit',
     function($scope, $routeParams, jawbone){
-      /**
-       * Function that transforms a timestamps in seconds to the corresponding
-       * hour in the day in 24 hour format with decimal accounting for the
-       * minutes.
-       */
-      $scope.toHours = function(timestamp){
-        var tmpDate = new Date(timestamp * 1000);
-        return tmpDate.getHours() + tmpDate.getMinutes() / 60;
-      };
-      /**
-       * Function that maps from Jawbone UP int codes for sleep depth to the
-       * corresponding CSS class for the sleep-cycle directive from the
-       * visualizations library.
-       */
-      $scope.getUPColor = function(depth){
-        switch (depth) {
-        case 1:
-          return 'awake';
-        case 2:
-          return 'light-sleep';
-        case 3:
-          return 'deep-sleep';
-        }
-      };
-      /**
-       * Function that maps from the Jawbone UP sleep to a string description of
-       * the sleep status at that point.
-       */
-      $scope.getUPDescription = function(depth){
-        switch (depth) {
-        case 1:
-          return 'Awake';
-        case 2:
-          return 'Light sleep';
-        case 3:
-          return 'Sound sleep';
-        }
-      };
       /**
        * Function to configure the date picker
        */
@@ -104,42 +67,15 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
 
       var records = _.map(JSON.parse(atob($routeParams.records)), JSON.parse);
       var distilledRecords = _.filter(records, jawbone.isJawboneSleepRecord);
+      var jawboneRecords = _.filter(records, jawbone.isJawboneSleepRecord);
+      var fitbitRecords = _.filter(records, fitbit.isFitbitSleepRecord);
+
       // Configure the width of the element
       $scope.visWidth = 300;
       $scope.dateWidth = 400;
+
       // For each of the distilled records, create a clock
-      $scope.sleepCollection = _.map(distilledRecords, function(elem){
-        var item = new Object();
-        item.sunset = $scope.toHours(elem.data.items[0].details.sunset);
-        item.sunrise = $scope.toHours(elem.data.items[0].details.sunrise);
-        item.start_date = new Date(elem.data.items[0].time_created * 1000);
-        item.end_date = new Date(
-            elem.data.items[elem.data.items.length - 1].time_completed * 1000);
-        item.quality = _.max(elem.data.items, function(val){
-          return parseInt(val.details.quality);
-        }).details.quality;
-        item.data = [];
-        elem.data.items.forEach(function(val){
-          var absoluteEnd = val.time_completed;
-          var lastObject = null;
-          var ticks = elem[val.xid].data.items;
-          ticks.forEach(function(tick){
-            if (lastObject) {
-              lastObject.endTime = new Date(tick.time * 1000);
-            }
-            var newEvent = null;
-            newEvent = {
-              startTime : new Date(tick.time * 1000),
-              colorClass : $scope.getUPColor(tick.depth),
-              description : $scope.getUPDescription(tick.depth)
-            };
-            lastObject = newEvent;
-            item.data.push(lastObject);
-          });
-          lastObject.endTime = new Date(absoluteEnd * 1000);
-        });
-        return item;
-      });
+      $scope.sleepCollection = _.map(jawboneRecords, jawbone.fromJawboneSleep);
       // Ensure that clocks are ordered by date
       $scope.sleepCollection = _.sortBy($scope.sleepCollection, function(val){
         return val.start_date;

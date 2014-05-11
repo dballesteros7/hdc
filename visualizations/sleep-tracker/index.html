@@ -10,6 +10,7 @@
 </head>
 <body>
   <div class="container" ng-view></div>
+  <!-- External libraries -->
   <script type="text/javascript"
     src="bower_components/angular/angular.js"></script>
   <script type="text/javascript"
@@ -21,9 +22,11 @@
   <script type="text/javascript"
     src="bower_components/visualizations/dist/visualizations.js"></script>
   <script type="text/javascript"
-    src="bower_components/underscore/underscore.js"></script><script type="text/javascript" src="js/app.js"></script>
-  <script type="text/javascript"
-    src="bower_components/underscore/underscore.js"></script><script type="text/javascript" src="js/services/jawbone.js"></script>
+    src="bower_components/underscore/underscore.js"></script>
+  <!-- Visualization-specific files -->
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/services/jawbone.js"></script>
+  <script type="text/javascript" src="js/services/fitbit.js"></script>
   <script type="text/javascript" src="js/controllers.js"></script>
 </body>
 </html>
