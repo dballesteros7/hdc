@@ -92,6 +92,7 @@ angular
               });
               lastObject.endTime = new Date(absoluteEnd * 1000);
             });
+            return item;
           };
           /**
            * Auxiliary function that maps from Jawbone UP int codes for sleep
