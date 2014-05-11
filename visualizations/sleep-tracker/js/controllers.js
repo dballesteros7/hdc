@@ -3,6 +3,7 @@ var hdcSleepTracker = angular.module('hdcSleepTracker');
 /**
  * This app supports one type of data: <br>
  * 1. Jawbone UP sleep data <br>
+ * 2. Fitbit sleep data <br>
  * 
  * For Jawbone UP, it is expected that every record matches the sleep list for a
  * single day with details about the phases of the sleep events. The main object
@@ -18,12 +19,24 @@ var hdcSleepTracker = angular.module('hdcSleepTracker');
  * as provided by: https://jawbone.com/nudge/api/v.1.1/sleeps/{sleep_xid}/ticks,
  * for this property the key should be the sleep_xid. <br>
  * 
- * For an example of a valid record, check the example.json in data/ <br>
+ * For an example of a valid Jawbone UP record, see example.json in data/ 
+ * <br>
+ *
+ * For Fitbit, it is expected that every record matches the sleep record for a
+ * single day as returned by the following query:
+ * 
+ * GET /<api-version>/user/<user-id>/sleep/date/<date>.<response-format> <br>
+ * 
+ * This endpoint is described in: 
+ * https://wiki.fitbit.com/display/API/API-Get-Sleep <br>
+ * 
+ * For an example of a valid record, see example_2.json in data/ <br>
  */
 hdcSleepTracker.controller('SleepTrackerCtrl', [
     '$scope',
     '$routeParams',
-    function($scope, $routeParams){
+    'jawbone',
+    function($scope, $routeParams, jawbone){
       /**
        * Function that transforms a timestamps in seconds to the corresponding
        * hour in the day in 24 hour format with decimal accounting for the
@@ -90,43 +103,7 @@ hdcSleepTracker.controller('SleepTrackerCtrl', [
       };
 
       var records = _.map(JSON.parse(atob($routeParams.records)), JSON.parse);
-      var distilledRecords = _.filter(records, function(elem){
-        // First check that this is a jawbone UP record
-        // A jawbone record should have a meta property, and a data property
-        // with items
-        if (elem.meta === undefined || elem.data === undefined
-            || elem.data.items === undefined) {
-          return false;
-        }
-        // If there are no items in the data element then ignore this element
-        if (elem.data.items.length == 0) {
-          return false;
-        }
-        // Now we are going to deal with sleeping records, first make sure that
-        // for every item we have an xid and an associated sleep phases object
-        // in the main element. Additionally check that every element has a
-        // details object and at least the following properties
-        // asleep_time, awake_time, sunset, sunrise, quality
-        if (!_.every(elem.data.items,
-            function(childElem){
-              if (childElem.xid === undefined
-                  || elem[childElem.xid] === undefined) {
-                return false;
-              }
-              if (childElem.details === undefined
-                  || childElem.details.asleep_time === undefined
-                  || childElem.details.awake_time === undefined
-                  || childElem.details.sunset === undefined
-                  || childElem.details.sunrise === undefined
-                  || childElem.details.quality === undefined) {
-                return false;
-              }
-              return true;
-            })) {
-          return false;
-        }
-        return true;
-      });
+      var distilledRecords = _.filter(records, jawbone.isJawboneSleepRecord);
       // Configure the width of the element
       $scope.visWidth = 300;
       $scope.dateWidth = 400;

@@ -1,5 +1,5 @@
 var hdcSleepTracker = angular.module('hdcSleepTracker', [ 'ngRoute',
-    'sleepcycle', 'dateseries', 'ui.bootstrap' ]);
+    'sleepcycle', 'dateseries', 'ui.bootstrap', 'hdcSleepTracker.jawbone']);
 
 hdcSleepTracker.config([ '$routeProvider', function($routeProvider){
   $routeProvider.when('/:records', {
