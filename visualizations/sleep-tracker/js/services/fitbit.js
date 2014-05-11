@@ -13,4 +13,5 @@ angular.module('hdcSleepTracker.fitbit', [])
       // Record should be good enough otherwise
       return true;
     };
+    return fitbit;
   });
