@@ -122,7 +122,9 @@ spaces.controller('SpacesCtrl', ['$scope', '$http', '$sce', '$filter', 'filterSe
 	reloadSpace = function(space) {
 		var filteredRecords = $filter("recordFilter")(space.baseRecords, space.serviceId);
 		var filteredData = _.map(filteredRecords, function(record) { return record.data; });
-		var completedUrl = space.baseUrl.replace(":records", btoa(JSON.stringify(filteredData)));
+		//var completedUrl = space.baseUrl.replace(":records", btoa(JSON.stringify(filteredData)));
+		// Send the user id to the visualization, it will take it from there.
+		var completedUrl = space.baseUrl.replace(":records", encodeURIComponent($scope.userId.$oid));
 		space.trustedUrl = $sce.trustAsResourceUrl(completedUrl);
 		$("#iframe-" + space._id.$oid).attr("src", space.trustedUrl);
 	}

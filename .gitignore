@@ -1,1 +1,3 @@
 /.settings
+# Node
+node_modules/
