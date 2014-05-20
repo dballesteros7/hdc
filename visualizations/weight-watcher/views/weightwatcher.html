@@ -1,0 +1,30 @@
+<div ng-cloak ng-show="dataReady" class="row">
+  <div class="col-xs-12">
+    <weight-scale width="500" height="200" weight={{displayWeight}}
+      bmi={{displayBmi}}></weight-scale>
+  </div>
+</div>
+<div ng-cloak ng-show="dataReady" class="row">
+  <div class="col-xs-12">
+    <div id="period-label">
+      <label class="control-label">Period:</label>
+    </div>
+    <div id="period-select">
+      <select class="form-control"
+        ng-options="option.label for option in periodOptions"
+        ng-model="selectedOption" ng-change="display()"></select>
+    </div>
+  </div>
+</div>
+<div ng-cloak ng-show="dataReady" class="row">
+  <div class="col-xs-12">
+    <h3>Message of the day</h3>
+    <p>{{message}}</p>
+  </div>
+</div>
+<div class="row" ng-hide="dataReady">
+  <div class="col-xs-12">
+    <p>Loading your data...</p>
+  </div>
+</div>
+

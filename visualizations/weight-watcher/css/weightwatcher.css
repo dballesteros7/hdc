@@ -1,0 +1,9 @@
+#period-label{
+  margin-left: 20px;
+  width: 130px;
+  display: inline-block;
+}
+#period-select {
+  width: 330px;
+  display: inline-block;
+}
