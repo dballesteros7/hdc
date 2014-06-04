@@ -1,6 +1,7 @@
 import datetime
 
 import pymongo
+import json
 
 connection_cache = None
 
@@ -15,7 +16,7 @@ def mongo_connect(func):
 
 @mongo_connect
 def create_record(conn, name, description, data,
-                  owner='Test User 1', creator=None,app='Text'):
+                  owner='Test User 1', creator=None, app='Text'):
     if creator is None:
         creator = owner
     owner_id = conn.healthdata.users.find_one({'name' : owner})['_id']
@@ -25,8 +26,17 @@ def create_record(conn, name, description, data,
     record_id = records.insert({'app' : app_id,
                                 'name' : name,
                                 'description' : description,
-                                'data' : data,
-                                'created' : datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                'data' : json.dumps(data),
+                                'created' : datetime.datetime.now()\
+                                            .strftime('%Y-%m-%d %H:%M:%S'),
                                 'owner' : owner_id,
                                 'creator' : creator_id})
-    print record_id
+    return record_id
+
+@mongo_connect
+def assign_record_to_space(conn, record_id, space_name, owner='Test User 1'):
+    owner_id = conn.healthdata.users.find_one({'name' : owner})['_id']
+    space = conn.healthdata.spaces.find_one({'name' : space_name,
+                                         'owner' : owner_id})
+    space['records'].append(record_id)
+    return conn.healthdata.spaces.save(space)
