@@ -37,6 +37,7 @@ angular.module('weightWatcherApp')
       if(cleanRecordList.length === 0){
         $scope.error.show = true;
         $scope.error.msg = 'Did not find any weight records in the space.';
+        return;
       }
 
       // Sort them by date and reverse it to have the latest first.
